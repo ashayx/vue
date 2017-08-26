@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Named Views</title>
+</head>
+        <script src="vue.js"></script>
+        <script src="vue-router.js"></script>
+<body>
+    <div id="app">
+        <router-link to="/">one</router-link>
+        <router-link to="/other">two</router-link>
+
+        <router-view class="view one"></router-view>
+        <router-view class="view two" name="a"></router-view>
+        <router-view class="view three" name="b"></router-view>
+    </div>
+
+    <script>
+        //组件
+        const Foo = { template: '<div>foo</div>' }
+        const Bar = { template: '<div>bar</div>' }
+        const Baz = { template: '<div>baz</div>' }
+        //定义路由
+        const routes = [
+            { 
+                path: '/', 
+                components: {
+                    default: Foo,
+                    a: Bar,
+                    b: Baz
+                }
+            },
+            { 
+                path: '/other', 
+                components: {
+                    default: Baz,
+                    a: Bar,
+                    b: Baz
+                }
+            }
+        ]
+        //创建router实例
+        const router = new VueRouter({
+            // mode: 'history',
+            routes,
+        })
+        //创建挂载
+        new Vue({
+            router
+        }).$mount('#app')
+
+
+    </script>
+    
+</body>
+</html>
