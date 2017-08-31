@@ -25,10 +25,10 @@
 
 		</el-table>
 		<div style="margin-top: 20px">
-			<el-button size="small" type="danger" @click="toggleSelection()">批量删除</el-button>
+			<el-button size="small" type="danger" @click="toggleSelection()">显示数据</el-button>
 
 			
-		<el-pagination style="float:right;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="20" layout="total, sizes, prev, pager, next, jumper" :total="40">
+		<el-pagination style="float:right;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[1, 2, 3, 4]" :page-size="1" layout="total, sizes, prev, pager, next, jumper" :total="8">
 		</el-pagination>
 
 		</div>
@@ -37,37 +37,15 @@
 </template>
 
 <script>
+import {tableData} from "../axios/axios.js"
+console.log(tableData)
 export default {
 	data() {
 		return {
 			dialogVisible: false,
 			multipleSelection: [],
 			currentPage: 1,
-			tableData: [{
-				date: '2016-05-02',
-				name: '王小',
-				sex: '男',
-				birthday: "1992-01-01",
-				address: '上海市普陀区金沙江路 1518 弄'
-			}, {
-				date: '2016-05-04',
-				name: '王小虎',
-				sex: '男',
-				birthday: "1993-01-01",
-				address: '上海市普陀区金沙江路 1517 弄'
-			}, {
-				date: '2016-05-01',
-				name: '王虎',
-				sex: '女',
-				birthday: "1994-01-01",
-				address: '上海市普陀区金沙江路 1519 弄'
-			}, {
-				date: '2016-05-03',
-				name: '小虎',
-				sex: '女',
-				birthday: "1995-01-01",
-				address: '上海市普陀区金沙江路 1516 弄'
-			}]
+			tableData : null,
 		}
 	},
 	methods: {
@@ -88,7 +66,8 @@ export default {
 		toggleSelection(rows) {
 
 			this.$refs.multipleTable.clearSelection()
-
+			console.log(this.tableData)
+			this.tableData = tableData
 		},
 		handleSelectionChange(val) {
 			this.multipleSelection = val
@@ -99,7 +78,8 @@ export default {
 		},
 		handleCurrentChange(val) {
 			console.log(`当前页: ${val}`);
-		}
+		},
+		
 	}
 }
 </script>

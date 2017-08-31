@@ -10,10 +10,10 @@
 					</template>
 					<el-menu-item-group>
 						
-						<el-menu-item index="home">
+						<el-menu-item index="login">
 							HOME
 						</el-menu-item>
-						<el-menu-item index="seting">
+						<el-menu-item index="login">
 							SETING
 						</el-menu-item>
 					</el-menu-item-group>

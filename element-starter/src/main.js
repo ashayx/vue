@@ -9,7 +9,7 @@ Vue.use(ElementUI)
 
 new Vue({
   el: '#app',
-  router,
   axios,
+  router,
   render: h => h(App)
 })
