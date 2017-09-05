@@ -94,6 +94,11 @@ export default {
 			 Users: null,
 		}
 	},
+	created() {
+		// 组件创建完后获取数据，
+		// 此时 data 已经被 observed 了
+		this.getData()
+	},
 	methods: {
 		formatter(row, column) {
 			return row.address
@@ -111,11 +116,7 @@ export default {
 			})
 		},
 		toggleSelection(rows) {
-
 			this.$refs.multipleTable.clearSelection()
-			// console.log(this.tableData)
-			// this.tableData = tableData
-			this.Users = Users
 		},
 		handleSelectionChange(val) {
 			this.multipleSelection = val
@@ -127,7 +128,9 @@ export default {
 		handleCurrentChange(val) {
 			console.log(`当前页: ${val}`);
 		},
-
+		getData() {
+			this.Users = Users
+		}
 	}
 }
 </script>
