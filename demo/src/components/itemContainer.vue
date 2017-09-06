@@ -2,6 +2,7 @@
 	<section>
 		<header class="top_tips">
 			<span class="num_tip" v-if="fatherComponent == 'home'">{{level}}</span>
+			<span class="num_tip" v-if="fatherComponent == 'item'">题目{{itemNum}}</span>
 		</header>
 
 		<div v-if="fatherComponent == 'home'">
@@ -9,25 +10,91 @@
 			<router-link to="item" class="start button_style"></router-link>
 		</div>
 
+		<div v-if="fatherComponent == 'item'">
+			<div class="item_back item_container_style">
+				<div class="item_list_container" v-if="itemDetail.length > 0">
+					<header class="item_title">{{itemDetail[itemNum-1].topic_name}}</header>
+					<ul>
+						<li class="item_list" v-for="(item, index) in itemDetail[itemNum-1].topic_answer" @click="choosed(index, item.topic_answer_id)">
+							<span class="option_style" :class="{'has_choosed':choosedNum==index}">{{chooseType(index)}}</span>
+							<span class="option_detail">{{item.answer_name}}</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<span class="next_item button_style" @click="nextItem" v-if="itemNum < itemDetail.length"></span>
+			<span class="submit_item button_style" v-else @click="submitAnswer"></span>
+		</div>
+
 	</section>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+import bgImage from '@/images/1-1.png'
+
 export default {
 	name: 'itemcontainer',
 	data() {
 		return {
-			level: '第一周'
+			choosedNum: null, // 选中选项的索引
+			choosedId: null
 		}
 	},
 	props: ['fatherComponent'],
+	computed: mapState([
+		'itemNum', // 第几题
+		'level', // 第几周
+		'itemDetail', // 题目详情
+		'timer' // 计时器
+	]),
+	methods: {
+		...mapActions([
+			'addNum',
+			'initializeData'
+		]),
+		// 索引0-3对应答案A-D
+		chooseType: type => {
+			switch (type) {
+			case 0: return 'A'
+			case 1: return 'B'
+			case 2: return 'C'
+			case 3: return 'D'
+			}
+		},
+		// 选中的答案
+		choosed(type, id) {
+			this.choosedNum = type
+			this.choosedId = id
+		},
+		// 下一题
+		nextItem() {
+			if (this.choosedNum !== null) {
+				this.choosedNum = null
+				this.addNum(this.choosedId)
+			} else {
+				alert('请选择！！')
+			}
+		},
+		// 到达最后一题，交卷，请空定时器，跳转分数页面
+		submitAnswer() {
+			if (this.choosedNum !== null) {
+				this.addNum(this.choosedId)
+				clearInterval(this.timer)
+				this.$router.push('score')
+			} else {
+				alert('您还没有选择答案哦')
+			}
+		}
+	},
 	created() {
+		this.initializeData()
+		document.body.style.backgroundImage = bgImage
 	}
 }
 </script>
 
 <style>
-
 .top_tips {
 	position: absolute;
 	height: 7.35rem;
@@ -86,5 +153,64 @@ export default {
 
 .start {
 	background-image: url(../images/1-4.png);
+}
+
+.next_item {
+	background-image: url(../images/2-2.png);
+}
+
+.submit_item {
+	background-image: url(../images/3-1.png);
+}
+
+.item_list_container {
+	position: absolute;
+	height: 7.0rem;
+	width: 8.0rem;
+	top: 2.4rem;
+	left: 3rem;
+	-webkit-font-smoothing: antialiased;
+}
+
+.item_title {
+	font-size: 0.65rem;
+	color: #fff;
+	line-height: 0.7rem;
+}
+
+.item_list {
+	font-size: 0;
+	margin-top: 0.4rem;
+	width: 10rem;
+}
+
+.item_list span {
+	display: inline-block;
+	font-size: 0.6rem;
+	color: #fff;
+	vertical-align: middle;
+}
+
+.item_list .option_style {
+	height: 0.725rem;
+	width: 0.725rem;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	line-height: 0.725rem;
+	text-align: center;
+	margin-right: 0.3rem;
+	font-size: 0.5rem;
+	font-family: 'Arial';
+}
+
+.item_list .has_choosed {
+	background-color: #ffd400;
+	color: #575757;
+	border-color: #ffd400;
+}
+
+.item_list .option_detail {
+	width: 7.5rem;
+	padding-top: 0.11rem;
 }
 </style>
