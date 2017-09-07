@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import { items } from '../axios/axios'
+
+console.log(items)
 
 export default {
     data() {

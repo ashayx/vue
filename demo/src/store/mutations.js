@@ -10,6 +10,7 @@ export default {
 	// 记录答案
 	[REMBER_ANSWER](state, id) {
 		state.answerid.push(id)
+		console.log(state.answerid)
 	},
 	/*
 	记录做题时间
