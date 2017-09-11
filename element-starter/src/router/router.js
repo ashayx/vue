@@ -1,33 +1,43 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home.vue'
-import Seting from '../components/Seting.vue'
-import login from '../components/login.vue'
-import item from '../components/Item.vue'
+
+import index from '../page/index.vue'
+import Home from '../page/Home.vue'
+import Seting from '../page/Seting.vue'
+import login from '../page/login.vue'
+import forum from '../page/forum.vue'
 
 Vue.use(Router)
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
-            path: '/login',
-            name: 'login',
-            component: login
-        },
-        {
-            path:'/home',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/seting',
-            name: 'seting',
-            component: Seting 
-        },
-        {
-            path: '/item',
-            name: 'item',
-            component: item
-        }
+            path: '/',
+            name: 'index',
+            component: index,
+            children: [
+                {
+                    path: '/login',
+                    name: 'login',
+                    component: login
+                },
+                {
+                    path: '/home',
+                    name: 'home',
+                    component: Home
+                },
+                {
+                    path: '/seting',
+                    name: 'seting',
+                    component: Seting
+                },
+                {
+                    path: '/forum',
+                    name: 'forum',
+                    component: forum
+                }
+            ]
+        } 
     ]
 })
