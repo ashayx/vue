@@ -21,15 +21,15 @@
 					</el-submenu>
 					<el-menu-item index="/home">
 						<i class="el-icon-edit"></i>
-						<span slot="title">home</span>
+						<span slot="title">表格</span>
 					</el-menu-item>
 					<el-menu-item index="/seting">
 						<i class="el-icon-setting"></i>
-						<span slot="title">seting</span>
+						<span slot="title">编辑</span>
 					</el-menu-item>
 					<el-menu-item index="/forum">
-						<i class="el-icon-setting"></i>
-						<span slot="title">item</span>
+						<i class="el-icon-information"></i>
+						<span slot="title">论坛</span>
 					</el-menu-item>
 				</el-menu>
 

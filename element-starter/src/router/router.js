@@ -6,6 +6,7 @@ import Home from '../page/Home.vue'
 import Seting from '../page/Seting.vue'
 import login from '../page/login.vue'
 import forum from '../page/forum.vue'
+import topic from '../page/topic.vue'
 
 Vue.use(Router)
 
@@ -36,7 +37,12 @@ export default new Router({
                     path: '/forum',
                     name: 'forum',
                     component: forum
-                }
+                },
+                {
+                    path: '/forum/topic/:Id',
+                    name: 'topic',
+                    component: topic
+                },
             ]
         } 
     ]

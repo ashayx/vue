@@ -70,8 +70,6 @@
 <script>
 import { Users } from "../mock/mock"
 
-console.log(Users[0].addr)
-
 export default {
 	data() {
 		return {
